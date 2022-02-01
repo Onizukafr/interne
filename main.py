@@ -2,12 +2,11 @@ import pandas as pd
 import streamlit as st
 import os
 
-filename = st.text_input('Enter a file path:')
-try:
-    with open(filename) as input:
-        st.text(input.read())
-except FileNotFoundError:
-    st.error('File not found.')
+with st.file_input() as input:
+  if input == None:
+    st.warning('No file selected.')
+  else:
+    file_contents = input.read()
 
 list_keywords = pd.read_excel(filename) 
 list_keywords = list_keywords.values.tolist()
